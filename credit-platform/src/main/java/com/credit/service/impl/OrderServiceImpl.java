@@ -110,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
                 })
                 .collect(Collectors.toList());
         
-        return new PageResult<>(voList, pageResult.getTotal(), pageNum, pageSize);
+        return PageResult.of(pageResult.getTotal(), voList, pageNum.longValue(), pageSize.longValue());
     }
 
     @Override

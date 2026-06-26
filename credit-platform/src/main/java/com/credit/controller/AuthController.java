@@ -40,10 +40,10 @@ public class AuthController {
                 dto.getEmail()
         );
 
-        String token = jwtTokenProvider.generateToken(user.getUsername(), user.getUserId());
+        String token = jwtTokenProvider.generateToken(user.getUsername(), user.getId());
 
         LoginVO vo = new LoginVO();
-        vo.setUserId(user.getUserId());
+        vo.setUserId(user.getId());
         vo.setUsername(user.getUsername());
         vo.setRealName(user.getRealName());
         vo.setToken(token);
@@ -70,10 +70,10 @@ public class AuthController {
             return Result.error(ErrorCode.FORBIDDEN, "用户已被禁用");
         }
 
-        String token = jwtTokenProvider.generateToken(user.getUsername(), user.getUserId());
+        String token = jwtTokenProvider.generateToken(user.getUsername(), user.getId());
 
         LoginVO vo = new LoginVO();
-        vo.setUserId(user.getUserId());
+        vo.setUserId(user.getId());
         vo.setUsername(user.getUsername());
         vo.setRealName(user.getRealName());
         vo.setToken(token);

@@ -13,6 +13,7 @@ public enum ErrorCode {
     
     // 400xx - 参数错误
     BAD_REQUEST(40001, "请求参数错误"),
+    PARAM_ERROR(40001, "请求参数错误"),
     VALIDATION_ERROR(40002, "数据校验失败"),
     
     // 401xx - 认证授权错误

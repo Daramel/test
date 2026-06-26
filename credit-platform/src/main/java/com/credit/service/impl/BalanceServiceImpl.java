@@ -97,7 +97,7 @@ public class BalanceServiceImpl implements BalanceService {
         wrapper.orderByDesc(BalanceLog::getCreateTime);
         
         IPage<BalanceLog> pageResult = balanceLogMapper.selectPage(page, wrapper);
-        return new PageResult<>(pageResult.getRecords(), pageResult.getTotal(), pageNum, pageSize);
+        return PageResult.of(pageResult.getTotal(), pageResult.getRecords(), pageNum.longValue(), pageSize.longValue());
     }
 
     @Override

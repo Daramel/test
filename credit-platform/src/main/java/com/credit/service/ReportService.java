@@ -2,7 +2,6 @@ package com.credit.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.credit.common.PageResult;
-import com.credit.dto.CreditReport;
 import com.credit.dto.ReportCreateRequest;
 import com.credit.dto.ReportDetailVO;
 import com.credit.dto.ReportListVO;
