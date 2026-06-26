@@ -26,12 +26,12 @@
         <thymeleaf.version>3.2.5</thymeleaf.version>
     </properties>
 
-    <!-- 配置阿里云镜像 -->
+    <!-- 配置华为云镜像 -->
     <repositories>
         <repository>
-            <id>aliyun</id>
-            <name>Aliyun Maven</name>
-            <url>https://maven.aliyun.com/repository/public</url>
+            <id>huawei</id>
+            <name>Huawei Maven</name>
+            <url>https://repo.huaweicloud.com/repository/maven/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -43,9 +43,9 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>aliyun</id>
-            <name>Aliyun Maven</name>
-            <url>https://maven.aliyun.com/repository/public</url>
+            <id>huawei</id>
+            <name>Huawei Maven</name>
+            <url>https://repo.huaweicloud.com/repository/maven/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
