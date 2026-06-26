@@ -9,7 +9,7 @@ USE credit_platform;
 -- -------------------------------------------
 DROP TABLE IF EXISTS sys_user;
 CREATE TABLE sys_user (
-    id                  BIGINT          PK AUTO_INCREMENT    COMMENT '主键',
+    id                  BIGINT          PRIMARY KEY AUTO_INCREMENT    COMMENT '主键',
     enterprise_id       BIGINT                                  COMMENT '企业ID',
     username            VARCHAR(64)     UNIQUE NOT NULL        COMMENT '用户名(手机号)',
     password            VARCHAR(128)    NOT NULL                COMMENT '密码(Bcrypt加密)',
@@ -30,7 +30,7 @@ CREATE TABLE sys_user (
 -- -------------------------------------------
 DROP TABLE IF EXISTS sys_enterprise;
 CREATE TABLE sys_enterprise (
-    id                  BIGINT          PK AUTO_INCREMENT    COMMENT '主键',
+    id                  BIGINT          PRIMARY KEY AUTO_INCREMENT    COMMENT '主键',
     enterprise_name     VARCHAR(255)    NOT NULL              COMMENT '企业名称',
     credit_code         VARCHAR(64)    UNIQUE NOT NULL       COMMENT '统一社会信用代码',
     legal_person        VARCHAR(64)    NOT NULL              COMMENT '法定代表人',
@@ -58,7 +58,7 @@ CREATE TABLE sys_enterprise (
 -- -------------------------------------------
 DROP TABLE IF EXISTS auth_sign_record;
 CREATE TABLE auth_sign_record (
-    id                  BIGINT          PK AUTO_INCREMENT    COMMENT '主键',
+    id                  BIGINT          PRIMARY KEY AUTO_INCREMENT    COMMENT '主键',
     sign_no             VARCHAR(64)    UNIQUE NOT NULL       COMMENT '签署编号',
     enterprise_id       BIGINT         NOT NULL              COMMENT '企业ID',
     user_id             BIGINT         NOT NULL              COMMENT '签署人用户ID',
@@ -79,7 +79,7 @@ CREATE TABLE auth_sign_record (
 -- -------------------------------------------
 DROP TABLE IF EXISTS credit_report;
 CREATE TABLE credit_report (
-    id                  BIGINT          PK AUTO_INCREMENT    COMMENT '主键',
+    id                  BIGINT          PRIMARY KEY AUTO_INCREMENT    COMMENT '主键',
     report_no           VARCHAR(64)    UNIQUE NOT NULL       COMMENT '报告编号',
     enterprise_id       BIGINT         NOT NULL              COMMENT '所属企业ID',
     enterprise_name     VARCHAR(255)   NOT NULL              COMMENT '企业名称(冗余)',
@@ -110,7 +110,7 @@ CREATE TABLE credit_report (
 -- -------------------------------------------
 DROP TABLE IF EXISTS order_info;
 CREATE TABLE order_info (
-    id                  BIGINT          PK AUTO_INCREMENT    COMMENT '主键',
+    id                  BIGINT          PRIMARY KEY AUTO_INCREMENT    COMMENT '主键',
     order_no            VARCHAR(64)    UNIQUE NOT NULL       COMMENT '订单号',
     enterprise_id       BIGINT         NOT NULL              COMMENT '下单企业ID',
     user_id             BIGINT         NOT NULL              COMMENT '下单用户ID',
@@ -140,7 +140,7 @@ CREATE TABLE order_info (
 -- -------------------------------------------
 DROP TABLE IF EXISTS credit_score;
 CREATE TABLE credit_score (
-    id                  BIGINT          PK AUTO_INCREMENT    COMMENT '主键',
+    id                  BIGINT          PRIMARY KEY AUTO_INCREMENT    COMMENT '主键',
     enterprise_id       BIGINT         NOT NULL              COMMENT '企业ID',
     total_score         INT           NOT NULL              COMMENT '综合评分(0-1000)',
     credit_rating       VARCHAR(16)    NOT NULL              COMMENT '信用等级(AAA/AA/A/BBB/BB/B/CCC/CC/C)',
@@ -163,7 +163,7 @@ CREATE TABLE credit_score (
 -- -------------------------------------------
 DROP TABLE IF EXISTS sys_role;
 CREATE TABLE sys_role (
-    id                  BIGINT          PK AUTO_INCREMENT    COMMENT '主键',
+    id                  BIGINT          PRIMARY KEY AUTO_INCREMENT    COMMENT '主键',
     role_code           VARCHAR(64)    UNIQUE NOT NULL       COMMENT '角色编码',
     role_name           VARCHAR(64)    NOT NULL              COMMENT '角色名称',
     description         VARCHAR(255)                           COMMENT '角色描述',
@@ -177,7 +177,7 @@ CREATE TABLE sys_role (
 -- -------------------------------------------
 DROP TABLE IF EXISTS sys_menu;
 CREATE TABLE sys_menu (
-    id                  BIGINT          PK AUTO_INCREMENT    COMMENT '主键',
+    id                  BIGINT          PRIMARY KEY AUTO_INCREMENT    COMMENT '主键',
     parent_id           BIGINT         NOT NULL DEFAULT 0   COMMENT '父级ID，0为顶级',
     menu_name           VARCHAR(64)    NOT NULL              COMMENT '菜单名称',
     menu_type           TINYINT        NOT NULL              COMMENT '类型: 1-目录 2-菜单 3-按钮',
@@ -197,7 +197,7 @@ CREATE TABLE sys_menu (
 -- -------------------------------------------
 DROP TABLE IF EXISTS sys_oper_log;
 CREATE TABLE sys_oper_log (
-    id                  BIGINT          PK AUTO_INCREMENT    COMMENT '主键',
+    id                  BIGINT          PRIMARY KEY AUTO_INCREMENT    COMMENT '主键',
     enterprise_id       BIGINT                                  COMMENT '企业ID',
     user_id             BIGINT         NOT NULL              COMMENT '操作人ID',
     username            VARCHAR(64)    NOT NULL              COMMENT '操作人账号',
