@@ -1,23 +1,21 @@
 package com.credit.util;
 
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * 日期工具类
  */
-public class DateUtil {
+public class DateUtils {
 
     public static final String PATTERN_DATE = "yyyy-MM-dd";
     public static final String PATTERN_DATETIME = "yyyy-MM-dd HH:mm:ss";
     public static final String PATTERN_TIME = "HH:mm:ss";
 
-    private DateUtil() {
+    private DateUtils() {
     }
 
     /**
@@ -32,13 +30,6 @@ public class DateUtil {
      */
     public static String formatDateTime(LocalDateTime dateTime) {
         return dateTime == null ? "" : dateTime.format(DateTimeFormatter.ofPattern(PATTERN_DATETIME));
-    }
-
-    /**
-     * 格式化日期
-     */
-    public static String format(Date date) {
-        return date == null ? "" : DateUtil.format(date, PATTERN_DATETIME);
     }
 
     /**

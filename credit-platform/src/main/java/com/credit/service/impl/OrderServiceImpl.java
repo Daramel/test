@@ -17,7 +17,7 @@ import com.credit.mapper.PaymentRecordMapper;
 import com.credit.mapper.RefundRecordMapper;
 import com.credit.service.OrderService;
 import com.credit.service.PaymentService;
-import com.credit.util.DateUtil;
+import com.credit.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -190,11 +190,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private String generateOrderNo() {
-        return "ORD" + DateUtil.getCurrentDateStr() + System.currentTimeMillis();
+        return "ORD" + DateUtils.getCurrentDateStr() + System.currentTimeMillis();
     }
 
     private String generateRefundNo() {
-        return "REF" + DateUtil.getCurrentDateStr() + System.currentTimeMillis();
+        return "REF" + DateUtils.getCurrentDateStr() + System.currentTimeMillis();
     }
 
 }

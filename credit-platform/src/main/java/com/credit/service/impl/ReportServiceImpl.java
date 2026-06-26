@@ -17,7 +17,7 @@ import com.credit.mapper.SysEnterpriseMapper;
 import com.credit.mapper.SysUserMapper;
 import com.credit.service.ReportGeneratorService;
 import com.credit.service.ReportService;
-import com.credit.util.DateUtil;
+import com.credit.util.DateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -195,7 +195,7 @@ public class ReportServiceImpl implements ReportService {
      * 生成报告编号
      */
     private String generateReportNo() {
-        return "CR" + DateUtil.formatLocalDateTime(LocalDateTime.now(), "yyyyMMddHHmmss")
+        return "CR" + LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
                 + String.format("%04d", (int) (Math.random() * 10000));
     }
 
