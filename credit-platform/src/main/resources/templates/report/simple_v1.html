@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${enterprise.name} + '企业信用报告'">企业信用报告</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "SimHei", Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 封面样式 */
+        .cover {
+            text-align: center;
+            padding: 80px 20px;
+            border-bottom: 3px solid #1a73e8;
+        }
+        
+        .cover h1 {
+            font-size: 32px;
+            color: #1a73e8;
+            margin-bottom: 20px;
+        }
+        
+        .cover .enterprise-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin: 30px 0;
+        }
+        
+        .cover .report-info {
+            color: #666;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+        
+        .cover .report-info p {
+            margin: 5px 0;
+        }
+        
+        /* 评分卡片 */
+        .score-card {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .score-item {
+            text-align: center;
+        }
+        
+        .score-value {
+            font-size: 48px;
+            font-weight: bold;
+            color: #1a73e8;
+        }
+        
+        .score-label {
+            font-size: 16px;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .credit-level {
+            font-size: 36px;
+            color: #ff9800;
+            font-weight: bold;
+        }
+        
+        /* 报告摘要 */
+        .summary {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #1a73e8;
+            margin: 20px 0;
+        }
+        
+        .summary h3 {
+            color: #1a73e8;
+            margin-bottom: 15px;
+        }
+        
+        /* 企业信息表格 */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .info-table th,
+        .info-table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        .info-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+            width: 30%;
+        }
+        
+        .info-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        
+        /* 风险提示 */
+        .risk-alert {
+            padding: 20px;
+            background-color: #fff3e0;
+            border: 1px solid #ff9800;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .risk-alert.low-risk {
+            background-color: #e8f5e9;
+            border-color: #4caf50;
+        }
+        
+        .risk-alert h4 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+        
+        .risk-alert.low-risk h4 {
+            color: #4caf50;
+        }
+        
+        /* 声明 */
+        .disclaimer {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .disclaimer h4 {
+            margin-bottom: 10px;
+        }
+        
+        /* 页脚 */
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        /* 分页 */
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 封面 -->
+        <div class="cover">
+            <h1>企业信用报告</h1>
+            <div class="enterprise-name" th:text="${enterprise.name}">企业名称</div>
+            <div class="report-info">
+                <p>报告编号：<span th:text="${report.reportNo}">CR20240101000001</span></p>
+                <p>报告类型：<span th:text="${reportTypeName}">企业基础信用报告</span></p>
+                <p>生成日期：<span th:text="${#temporals.format(generateDate, 'yyyy年MM月dd日')}">2024年01月01日</span></p>
+                <p>有效期至：<span th:text="${#temporals.format(report.expireDate, 'yyyy年MM月dd日')}">2025年01月01日</span></p>
+            </div>
+        </div>
+
+        <!-- 报告摘要 -->
+        <div class="summary">
+            <h3>📋 报告摘要</h3>
+            <p>本报告基于企业基本信息、经营状况、信用记录等多维度数据，对该企业的信用状况进行全面评估。</p>
+        </div>
+
+        <!-- 信用评分卡片 -->
+        <div class="score-card">
+            <div class="score-item">
+                <div class="score-value" th:text="${creditScore}">85</div>
+                <div class="score-label">信用评分</div>
+            </div>
+            <div class="score-item">
+                <div class="credit-level" th:text="${creditLevel}">AA</div>
+                <div class="score-label">信用等级</div>
+            </div>
+        </div>
+
+        <!-- 企业基本信息 -->
+        <h2 style="margin: 30px 0 15px; color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 10px;">
+            📝 企业基本信息
+        </h2>
+        <table class="info-table">
+            <tr>
+                <th>企业名称</th>
+                <td th:text="${enterprise.name}">-</td>
+            </tr>
+            <tr>
+                <th>统一社会信用代码</th>
+                <td th:text="${enterprise.unifiedSocialCreditCode}">-</td>
+            </tr>
+            <tr>
+                <th>法定代表人</th>
+                <td th:text="${enterprise.legalPerson}">-</td>
+            </tr>
+            <tr>
+                <th>注册资本</th>
+                <td th:text="${enterprise.registeredCapital} + '万元'">-</td>
+            </tr>
+            <tr>
+                <th>实缴资本</th>
+                <td th:text="${enterprise.paidInCapital} + '万元'">-</td>
+            </tr>
+            <tr>
+                <th>企业类型</th>
+                <td th:text="${enterprise.enterpriseType}">-</td>
+            </tr>
+            <tr>
+                <th>成立日期</th>
+                <td th:text="${#temporals.format(enterprise.establishedDate, 'yyyy年MM月dd日')}">-</td>
+            </tr>
+            <tr>
+                <th>营业期限</th>
+                <td>
+                    <span th:text="${#temporals.format(enterprise.businessStartDate, 'yyyy年MM月dd日')}">-</span>
+                    至
+                    <span th:text="${enterprise.businessEndDate != null ? #temporals.format(enterprise.businessEndDate, 'yyyy年MM月dd日') : '长期'}">-</span>
+                </td>
+            </tr>
+            <tr>
+                <th>经营范围</th>
+                <td th:text="${enterprise.businessScope}">-</td>
+            </tr>
+            <tr>
+                <th>注册地址</th>
+                <td th:text="${enterprise.registeredAddress}">-</td>
+            </tr>
+            <tr>
+                <th>联系电话</th>
+                <td th:text="${enterprise.contactPhone}">-</td>
+            </tr>
+            <tr>
+                <th>企业状态</th>
+                <td th:switch="${enterprise.status}">
+                    <span th:case="0">存续</span>
+                    <span th:case="1">在业</span>
+                    <span th:case="2">吊销</span>
+                    <span th:case="3">注销</span>
+                    <span th:case="*">未知</span>
+                </td>
+            </tr>
+        </table>
+
+        <!-- 风险提示 -->
+        <h2 style="margin: 30px 0 15px; color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 10px;">
+            ⚠️ 风险提示
+        </h2>
+        <div class="risk-alert" th:class="${riskData.hasRisk ? 'risk-alert' : 'risk-alert low-risk'}">
+            <h4 th:text="${riskData.riskLevel}">低风险</h4>
+            <p th:text="${riskData.riskDesc}">未发现明显风险信息</p>
+        </div>
+
+        <!-- 声明与免责 -->
+        <div class="disclaimer">
+            <h4>📌 声明与免责</h4>
+            <ol>
+                <li>本报告仅供参考，不构成任何投资建议或决策依据。</li>
+                <li>报告中的信息来源于公开渠道，本公司不对信息的真实性、完整性负责。</li>
+                <li>本报告有效期为一年，逾期请重新查询。</li>
+                <li>如对报告内容有异议，请联系本公司进行核实。</li>
+                <li>未经授权，本报告不得用于任何商业用途。</li>
+            </ol>
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>本报告由企业征信管理平台出具 | 报告编号：<span th:text="${report.reportNo}">-</span></p>
+            <p>如有疑问，请联系客服热线：400-888-8888</p>
+        </div>
+    </div>
+</body>
+</html>

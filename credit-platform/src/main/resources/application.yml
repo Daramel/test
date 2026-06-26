@@ -1,0 +1,78 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: credit-platform
+
+  profiles:
+    active: dev
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/credit_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: root123
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 
+      database: 0
+      timeout: 3000ms
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.credit.entity
+
+jwt:
+  secret: credit-platform-jwt-secret-key-must-be-at-least-256-bits-long-for-hs256
+  expiration: 86400000
+  header: Authorization
+  prefix: "Bearer "
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+# 支付配置
+pay:
+  wechat:
+    appid: your_appid
+    mchid: your_mchid
+    api-key: your_key
+    callback-url: http://your-domain.com/api/pay/wechat/notify
+  alipay:
+    app-id: your_appid
+    private-key: your_key
+    public-key: alipay_public_key
+    callback-url: http://your-domain.com/api/pay/alipay/notify
+
+# 报告配置
+report:
+  template:
+    path: classpath:/templates/report/
+  storage:
+    path: /data/reports/
+  watermark:
+    enabled: true
+    text: "仅供内部使用"
+  generate:
+    async: true
+    thread-pool-size: 5
