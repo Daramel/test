@@ -99,7 +99,8 @@ import { ref, reactive, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, FormInstance, FormRules } from 'element-plus'
 import { Check } from '@element-plus/icons-vue'
-import { getReportTypes, createOrder } from '@/api/report'
+import { getReportTypes } from '@/api/report'
+import { createOrder } from '@/api/order'
 import { formatMoney, validateCreditCode } from '@/utils/common'
 
 const route = useRoute()
